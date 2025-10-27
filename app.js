@@ -55,8 +55,6 @@ const cancelEditBtn = document.getElementById('cancelEdit');
 const tbody = document.getElementById('tbody');
 const countLabel = document.getElementById('countLabel');
 const sortBtn = document.getElementById('sortBtn');
-const exportBtn = document.getElementById('btnExport');
-const importInput = document.getElementById('importCsv');
 const clearBtn = document.getElementById('btnClear');
 
 const kpiLastWeight = document.getElementById('kpiLastWeight');
@@ -103,37 +101,9 @@ form.addEventListener('submit', (e)=>{
   render();
 });
 
-sortBtn.addEventListener('click', ()=>{
+sortBtn.addEventListener('click', () => {
   sortDesc = !sortDesc;
   render();
-});
-
-exportBtn.addEventListener('click', ()=>{
-  const csv = toCSV(entries);
-  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'pesos_alturas.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
-
-importInput.addEventListener('change', async (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  const text = await file.text();
-  const imported = parseCSV(text);
-  if(!imported.length){ alert('CSV vacío o formato no válido.'); return; }
-  // Merge por fecha (reemplaza si coincide)
-  imported.forEach(rec=>{
-    const idx = entries.findIndex(x=>x.date===rec.date);
-    if (idx>=0) entries[idx]=rec;
-    else entries.push(rec);
-  });
-  saveEntries(entries);
-  render();
-  importInput.value = '';
-  alert(`Importados ${imported.length} registro(s).`);
 });
 
 clearBtn.addEventListener('click', ()=>{
@@ -243,35 +213,4 @@ function renderKPIs(){
   kpiDelta.textContent = prev ? `${sign}${delta.toFixed(1)} kg` : '—';
   const bmi = computeBMI(last.weight, last.height);
   kpiLastBMI.textContent = bmi ? `${bmi.toFixed(2)} (${bmiCategory(bmi)})` : '—';
-}
-
-// --- CSV helpers ---
-function toCSV(arr){
-  const header = 'fecha,peso_kg,altura_cm,imc,categoria\n';
-  const lines = arr.map(r=>{
-    const bmi = computeBMI(r.weight, r.height);
-    const cat = bmiCategory(bmi);
-    return [r.date, r.weight.toFixed(1), r.height.toFixed(1), (bmi?bmi.toFixed(2):''), cat]
-            .map(s=>String(s)).join(',');
-  });
-  return header + lines.join('\n');
-}
-function parseCSV(txt){
-  // Formato esperado: fecha,peso_kg,altura_cm[,...]
-  const lines = txt.trim().split(/\r?\n/).filter(Boolean);
-  if (lines.length===0) return [];
-  // Detectar si la primera línea es cabecera
-  let start = 0;
-  if (/fecha/i.test(lines[0]) && /peso/i.test(lines[0])) start = 1;
-  const out = [];
-  for (let i=start; i<lines.length; i++){
-    const cols = lines[i].split(',').map(s=>s.trim());
-    if (cols.length<3) continue;
-    const date = cols[0];
-    const weight = parseFloat(cols[1]);
-    const height = parseFloat(cols[2]);
-    if (!date || !(weight>0) || !(height>0)) continue;
-    out.push({ date, weight:+weight.toFixed(1), height:+height.toFixed(1) });
-  }
-  return out;
 }
