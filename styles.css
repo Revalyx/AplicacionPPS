@@ -111,3 +111,61 @@ tbody tr:hover{ background: rgba(255,255,255,.03); }
 .tag.ok{ color: var(--ok); border-color: rgba(34,197,94,.35); }
 .tag.warn{ color: var(--warn); border-color: rgba(245,158,11,.35); }
 .tag.danger{ color: var(--danger); border-color: rgba(239,68,68,.35); }
+
+/* ... existing code ... */
+.tag.ok{ color: var(--ok); border-color: rgba(34,197,94,.35); }
+.tag.warn{ color: var(--warn); border-color: rgba(245,158,11,.35); }
+.tag.danger{ color: var(--danger); border-color: rgba(239,68,68,.35); }
+
+/* --- Estilos para Login --- */
+.body-login {
+  /* Estilos para centrar el login */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* El padding de 24px del body original interfiere, lo re-aplicamos si es necesario en el wrapper */
+  padding: 24px;
+}
+
+.body-login h1 {
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.body-login .card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.body-login .card > .card-body {
+  padding: 28px;
+}
+
+.body-login .form-group {
+  margin-bottom: 16px;
+}
+
+.body-login .btn {
+  width: 100%;
+  /* Hacemos el botón de ancho completo */
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.body-login .login-helpers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.body-login .login-helpers a {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.body-login .login-helpers a:hover {
+  color: var(--accent);
+}
