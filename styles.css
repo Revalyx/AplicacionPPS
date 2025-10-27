@@ -1,0 +1,113 @@
+:root{
+  --bg: #0f172a;        /* slate-900 */
+  --panel:#111827;      /* gray-900 */
+  --muted:#94a3b8;      /* slate-400 */
+  --text:#e5e7eb;       /* gray-200 */
+  --accent:#22d3ee;     /* cyan-400 */
+  --accent-2:#a78bfa;   /* violet-400 */
+  --danger:#ef4444;     /* red-500 */
+  --ok:#22c55e;         /* green-500 */
+  --warn:#f59e0b;       /* amber-500 */
+  --card:#0b1220;
+  --border:#1f2937;     /* gray-800 */
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --radius: 16px;
+}
+
+*{ box-sizing:border-box }
+
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(34,211,238,.12), transparent 60%),
+              radial-gradient(1000px 700px at 120% 10%, rgba(167,139,250,.12), transparent 60%),
+              var(--bg);
+  color: var(--text);
+  padding: 24px;
+}
+
+/* Header */
+.header{
+  display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  margin-bottom: 18px;
+}
+h1{
+  margin:0; font-size: clamp(20px, 2.8vw, 32px);
+  letter-spacing:.2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color: transparent;
+}
+
+/* Layout */
+.wrap{
+  display:grid; gap:16px; grid-template-columns: 1fr;
+}
+@media (min-width: 980px){
+  .wrap{ grid-template-columns: 400px 1fr; }
+}
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card > .card-body{ padding: 18px; }
+
+.section-title{ margin:0 0 8px 0; }
+.muted{ color: var(--muted); font-size: .95rem; }
+.small{ font-size:.85rem; color:var(--muted); }
+
+.grid{ display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+.grid-3{ grid-template-columns: repeat(3, 1fr); }
+
+.row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.justify-between{ justify-content:space-between; }
+.mt-8{ margin-top:8px; }
+.mt-10{ margin-top:10px; }
+.mt-14{ margin-top:14px; }
+.mt-16{ margin-top:16px; }
+
+.hidden{ display:none; }
+
+label{ display:block; font-size:.9rem; color: var(--muted); margin-bottom:6px; }
+input, select{
+  width:100%; padding:12px 12px; border-radius:12px;
+  border:1px solid var(--border); background: #0a0f1d; color: var(--text);
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+input:focus{ border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
+
+.btn{
+  border:1px solid var(--border); background:#0b1220; color:var(--text);
+  padding:10px 14px; border-radius:12px; cursor:pointer; transition: .2s; font-weight:600;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn-primary{ border-color: transparent; background: linear-gradient(90deg, var(--accent), var(--accent-2)); color:#0b1220; }
+.btn-danger{ border-color: transparent; background: var(--danger); color:white; }
+.btn-ghost{ background: transparent; }
+
+/* KPIs */
+.kpi{
+  display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:8px;
+}
+.kpi .item{
+  border:1px solid var(--border); border-radius:12px; padding:12px; background: #0b1220;
+  text-align:center;
+}
+.kpi .value{ font-size:1.25rem; font-weight:700; }
+.kpi .label{ font-size:.85rem; color:var(--muted); }
+
+/* Tabla */
+.table-container{ overflow:auto; margin-top:8px; }
+table{ width:100%; border-collapse: collapse; }
+th, td{ text-align:left; padding:12px 10px; border-bottom:1px solid var(--border); }
+th{ font-size:.9rem; color:var(--muted); font-weight:600; }
+tbody tr:hover{ background: rgba(255,255,255,.03); }
+
+.footer-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+
+/* Tags */
+.tag{ padding:4px 8px; border-radius:999px; font-size:.8rem; border:1px solid var(--border); }
+.tag.ok{ color: var(--ok); border-color: rgba(34,197,94,.35); }
+.tag.warn{ color: var(--warn); border-color: rgba(245,158,11,.35); }
+.tag.danger{ color: var(--danger); border-color: rgba(239,68,68,.35); }
