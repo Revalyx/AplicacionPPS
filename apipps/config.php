@@ -1,25 +1,33 @@
 <?php
-$DB_HOST = 'localhost';
-$DB_PORT = 3306;
-$DB_NAME = 'emilio_APP_PPS';
-$DB_USER = 'emilio_adm';
-$DB_PASS = 'E.reyesVaq1993$';
+// apipps/config.php
+// Configura aquí tus credenciales de MySQL/MariaDB
+$DB_HOST = "localhost";
+$DB_NAME = "emilio_APP_PPS";
+$DB_USER = "emilio_adm";
+$DB_PASS = "E.reyesVaq1993$";
 
-function db(): PDO {
-  global $DB_HOST,$DB_PORT,$DB_NAME,$DB_USER,$DB_PASS;
-  $dsn = "mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;charset=utf8mb4";
-  $pdo = new PDO($dsn, $DB_USER, $DB_PASS, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-  ]);
-  return $pdo;
+// Conexión PDO compartida
+try {
+    $conn = new PDO(
+        "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
+        $DB_USER,
+        $DB_PASS,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]
+    );
+} catch (PDOException $e) {
+    http_response_code(500);
+    header("Content-Type: application/json");
+    echo json_encode(["error" => "Error de conexión a la base de datos"]);
+    exit;
 }
 
-// CORS y JSON headers
-function cors_json() {
-  header('Access-Control-Allow-Origin: *');
-  header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
-  header('Access-Control-Allow-Headers: Content-Type');
-  header('Content-Type: application/json; charset=utf-8');
-  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
+// Función para leer JSON del body de la request
+function read_json_body() {
+    $raw = file_get_contents("php://input");
+    if (!$raw) return [];
+    $data = json_decode($raw, true);
+    return is_array($data) ? $data : [];
 }

@@ -1,37 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <title>Login · Seguimiento de Peso</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iniciar Sesión</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="js/auth.js"></script>
 </head>
-<body class="body-login">
-
+<body>
   <main class="card">
-    <div class="card-body">
-      <h1>Iniciar Sesión</h1>
-
-      <form id="loginForm" autocomplete="off">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="tu@email.com" required />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input id="password" type="password" placeholder="••••••••" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Ingresar</button>
-
-        <div class="login-helpers">
-          <a href="#">Crear cuenta</a>
-        </div>
-      </form>
-    </div>
+    <h1>Iniciar sesión</h1>
+    <form id="loginForm" class="form">
+      <label>
+        <span>Correo</span>
+        <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required />
+      </label>
+      <label>
+        <span>Contraseña</span>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </label>
+      <button type="submit" class="btn">Ingresar</button>
+    </form>
+    <p id="mensaje" class="error"></p>
+    <p class="hint">¿Nuevo aquí? Regístrese con la API (`apipps/users.php`).</p>
   </main>
 
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
 </body>
 </html>
