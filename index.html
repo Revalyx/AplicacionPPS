@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Acceso · Seguimiento de Peso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="styleslogin.css" rel="stylesheet">
+</head>
+<body>
+  
+  <main class="login-wrapper">
+    <div class="brand-logo-container">
+      <div class="logo"></div>
+    </div>
+
+    <div class="flip-card-container" id="authCardContainer">
+      <div class="flip-card-inner">
+
+        <div class="card-face card-front" id="loginBox">
+          <h2>Login</h2>
+          
+          <form id="loginForm" class="form-layout">
+            <div class="form-group">
+              <input id="email" type="email" placeholder="Correo electrónico" required>
+            </div>
+            <div class="form-group">
+              <input id="password" type="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <p id="mensaje" class="error-message"></p>
+            <p class="toggle-link">
+              ¿No tiene cuenta? <a href="#" data-target="register">Regístrese aquí.</a>
+            </p>
+          </form>
+        </div>
+
+        <div class="card-face card-back" id="registerBox">
+          <h2>Crear una cuenta</h2>
+
+          <form id="registerForm" class="form-layout">
+            <div class="form-group">
+              <input id="regName" type="text" placeholder="Nombre">
+            </div>
+            <div class="form-group">
+              <input id="regEmail" type="email" placeholder="Correo electrónico" required>
+            </div>
+            <div class="form-group">
+              <input id="regPassword" type="password" placeholder="Contraseña (Mín. 6 caracteres)" required>
+            </div>
+            
+            <div class="form-group">
+              <input id="regBirthdate" type="text" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')">
+            </div>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+            <p id="regMensaje" class="error-message"></p>
+            <p class="toggle-link">
+              ¿Ya tiene cuenta? <a href="#" data-target="login">Volver a Ingresar.</a>
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div> 
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/login.js?v=3"></script> 
+</body>
+</html>
